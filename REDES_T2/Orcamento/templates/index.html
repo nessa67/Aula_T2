@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orcamento</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Orcamento</h1>
+    <a href="{{ url_for('add_equipment') }}">Add Equipment</a>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Model</th>
+            <th>Quantity</th>
+            <th>Unit</th>
+            <th>Value</th>
+            <th>Research Link</th>
+            <th>Actions</th>
+        </tr>
+        {% for equipment in equipments %}
+        <tr>
+            <td>{{ equipment.name }}</td>
+            <td>{{ equipment.description }}</td>
+            <td>{{ equipment.model }}</td>
+            <td>{{ equipment.quantity }}</td>
+            <td>{{ equipment.unit }}</td>
+            <td>{{ equipment.value }}</td>
+            <td><a href="{{ equipment.research_link }}" target="_blank">Link</a></td>
+            <td>
+                <a href="{{ url_for('edit_equipment', id=equipment.id) }}">Edit</a>
+                <a href="{{ url_for('delete_equipment', id=equipment.id) }}" onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="budget">
+        <h2>Total Budget: ${{ total_value }}</h2>
+    </div>
+</body>
+</html>
